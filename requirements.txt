@@ -1,0 +1,9 @@
+# requirements.txt
+
+# Este projeto usa exclusivamente a biblioteca padrão do Python 3.12
+
+# Nenhuma instalação de pacotes adicionais via pip é necessária
+
+# Versão recomendada do Python:
+
+python==3.12.\*
