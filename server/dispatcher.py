@@ -9,8 +9,8 @@ import os
 import logging
 from typing import Dict, Any, Optional, Callable, List
 
-from ..common.auth import verify_user
-from ..common.protocol import create_response, create_sync_response
+from common.auth import verify_user
+from common.protocol import create_response, create_sync_response
 from .file_handler import FileHandler
 
 

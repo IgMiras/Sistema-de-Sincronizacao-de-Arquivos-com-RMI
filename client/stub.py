@@ -9,8 +9,8 @@ import urllib.error
 from urllib.parse import urlencode
 from typing import Dict, Any, Optional
 
-from ..common.auth import create_auth_header
-from ..common.protocol import (
+from common.auth import create_auth_header
+from common.protocol import (
     SyncProtocol, 
     encode_request, 
     parse_response, 
@@ -180,3 +180,46 @@ class RemoteFileStub:
         Get the content of the master file
         
         Args:
+            protocol: The communication protocol used (R, RR, or RRA)
+
+        Returns:
+            A response dictionary containing the file content and sync ID
+        """
+        return self._make_get_request(self.endpoints["get_file_content"], {
+            "protocol": protocol.name
+        })
+
+    def check_master_version(self) -> Dict[str, Any]:
+        """
+        Check the current version (hash) and last modified time of the master file
+
+        Returns:
+            A response dictionary containing version info and timestamp
+        """
+        return self._make_get_request(self.endpoints["check_master_version"])
+
+    def confirm_sync(self, sync_id: str) -> Dict[str, Any]:
+        """
+        Confirm that the file was successfully synchronized (used in RR protocol)
+
+        Args:
+            sync_id: The ID of the synchronization to confirm
+
+        Returns:
+            A response dictionary confirming the operation
+        """
+        confirmation = create_confirmation(sync_id)
+        return self._make_post_request(self.endpoints["confirm_sync"], confirmation)
+
+    def acknowledge_sync(self, sync_id: str) -> Dict[str, Any]:
+        """
+        Asynchronously acknowledge the synchronization (used in RRA protocol)
+
+        Args:
+            sync_id: The ID of the synchronization to acknowledge
+
+        Returns:
+            A response dictionary confirming the acknowledgment
+        """
+        acknowledgment = create_acknowledgment(sync_id)
+        return self._make_post_request(self.endpoints["acknowledge_sync"], acknowledgment)

@@ -10,8 +10,8 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import parse_qs, urlparse
 from typing import Dict, Any, Optional, Tuple, Callable, Type
 
-from ..common.auth import parse_auth_header
-from ..common.protocol import decode_request
+from common.auth import parse_auth_header
+from common.protocol import decode_request
 from .dispatcher import Dispatcher
 
 

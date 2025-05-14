@@ -5,7 +5,7 @@ import os
 import time
 from typing import Optional
 from .stub import RemoteFileStub
-from ..common.protocol import SyncProtocol, create_confirmation, create_acknowledgment
+from common.protocol import SyncProtocol, create_confirmation, create_acknowledgment
 
 
 class SyncMonitor:

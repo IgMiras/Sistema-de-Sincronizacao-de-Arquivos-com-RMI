@@ -3,6 +3,7 @@
 Este é um sistema distribuído implementado utilizando o conceito de Invocação Remota de Métodos (RMI) sobre HTTP em Python. Ele sincroniza um arquivo `master.txt` no servidor com um arquivo `slave.txt` no cliente. O sistema suporta autenticação, requisições concorrentes e três protocolos de comunicação.
 
 ## Funcionalidades
+
 - Interface remota com esqueleto dinâmico (reflection)
 - Comunicação RMI via HTTP (`http.server` + `urllib.request`)
 - Autenticação via Basic Auth com registro de usuários
@@ -12,9 +13,11 @@ Este é um sistema distribuído implementado utilizando o conceito de Invocaçã
 - Log de sincronização salvo em `server/sync.log`
 
 ## Requisitos
+
 Somente a biblioteca padrão do Python 3.12 é utilizada. Nenhuma dependência externa é necessária.
 
 ## Estrutura de Diretórios
+
 ```
 sync_rmi_project/
 ├── client/
@@ -45,36 +48,46 @@ sync_rmi_project/
 
 ## Iniciando
 
-### 1. Iniciar o Servidor
+### 1. Iniciar o Servidor (Linux Ubuntu)
+
+TODOS OS COMANDOS ABAIXOS DEVEM SER EXECUTADOS NA PASTA RAIZ:
+
 ```bash
-cd server
-python server_main.py --host localhost --port 8000
+python3 -m server.server_main --host localhost --port 8000
 ```
+
 Você pode adicionar usuários com:
+
 ```bash
-python server_main.py --add-user USUARIO SENHA
+python3 -m server.server_main --add-user USUARIO SENHA
 ```
+
 Ou listar usuários:
+
 ```bash
-python server_main.py --list-users
+python3 -m server.server_main --list-users
 ```
 
 ### 2. Rodar o Cliente
+
 ```bash
-cd client
-python client_main.py --server http://localhost:8000 \
+python3 -m client.client_main.py --server http://localhost:8000 \
                       --username admin \
                       --password password \
                       --protocol R \
                       --interval 5
 ```
+
 Substitua `--protocol` por `RR` ou `RRA` para testar os outros modos.
 
 ### 3. Editar `master.txt`
+
 Altere o conteúdo do arquivo `server/master.txt` para testar a sincronização automática. O cliente detectará a mudança e atualizará o `slave.txt`.
 
 ## Arquivo de Log
+
 Todas as tentativas de sincronização são registradas em `server/sync.log`, com:
+
 - Endereço IP
 - Nome de usuário
 - Operação realizada
@@ -82,6 +95,7 @@ Todas as tentativas de sincronização são registradas em `server/sync.log`, co
 - Data e hora
 
 ## Licença
+
 Licença MIT
 
 ---
